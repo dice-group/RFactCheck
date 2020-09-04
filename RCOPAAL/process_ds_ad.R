@@ -7,9 +7,9 @@
     # ds_name='Real_World_Birth_Place'
     # ds_name='Real_World_Profession'
     #reification
-    source('C:\\Users\\Abdelmonem\\Dropbox\\RDF\\parseNT.R')
-    source('C:\\Users\\Abdelmonem\\Dropbox\\fchk\\hfuncs.R')
-    reif=getTriples(paste0("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\ds\\",ds_name,".nt"))
+    source('parseNT.R')
+    source('hfuncs.R')
+    reif=getTriples(paste0("Datasets/",ds_name,".nt"))
     tmp=cbind(unlist(reif[[1]]),unlist(reif[[2]]),unlist(reif[[3]]))
     trpid=unique(tmp[,1])
     obj=tmp[tmp[,2]=="<http://www.w3.org/1999/02/22-rdf-syntax-ns#object>",c(1,3)]
@@ -23,8 +23,8 @@
     gstd=tmp[tmp[,2]==rprd,c(1,3)]#gold std
     gstdTau=as.numeric(gsub("\"","",substr(gstd[,2],1,nchar(gstd[,2])-nchar(daty))))
 
-    source("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\GS_COPAAL.R")
-    source("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\calc_pth_npmi.R")
+    source("GS_COPAAL.R")
+    source("calc_pth_npmi.R")
 
     # endpoint <- "http://131.234.29.111:8890/sparql"
     # endpoint <- "http://sparql.cs.upb.de:8891/sparql"
@@ -69,9 +69,9 @@
     if(loadPths){
         # pthsAll=read.csv(paste0(ds_name,"_",Tydesc,"_npmi_ad_pths_Len3SOq_sg.csv"),stringsAsFactors=FALSE)
         # pthsAll=read.csv(paste0(ds_name,"_",Tydesc,"_npmi_ad_pths_Len3SOq.csv"),stringsAsFactors=FALSE)
-        # pthsAll=read.csv(paste0("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\FactChk\\",dsname,"_npmi_ad_pths_Len3SOq_vty.csv"),stringsAsFactors=FALSE)
-        # pthsAll=read.csv(paste0("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\FactChk\\",dsname1,"_ppg_pl1to3_vTy_npmi.csv"),stringsAsFactors=FALSE)
-        # pthsAll=read.csv(paste0("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\FactChk\\",ds_name,'_mincvPth.csv'),stringsAsFactors=FALSE)
+        # pthsAll=read.csv(paste0("FactChk\\",dsname,"_npmi_ad_pths_Len3SOq_vty.csv"),stringsAsFactors=FALSE)
+        # pthsAll=read.csv(paste0("FactChk\\",dsname1,"_ppg_pl1to3_vTy_npmi.csv"),stringsAsFactors=FALSE)
+        # pthsAll=read.csv(paste0("FactChk\\",ds_name,'_mincvPth.csv'),stringsAsFactors=FALSE)
         # pthsAll=read.csv(paste0(ds_name,"_",Tydesc,"_npmi_ad_exclpValPL3p_trunc.csv"),stringsAsFactors=FALSE)
         # pthsAll=read.csv('Nationality_vTy_npmi_3631_Fltr.csv',stringsAsFactors=FALSE)
         # pthsAll=read.csv('Real_World_Nationality_ts_to_npmi_ad_pths_Len3Exact.csv',stringsAsFactors=FALSE)

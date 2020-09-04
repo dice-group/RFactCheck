@@ -7,9 +7,9 @@ ds_name='Real_World_Nationality'
 # ds_name='Real_World_Birth_Place'
 # ds_name='Real_World_Profession'
 #reification
-source('C:\\Users\\Abdelmonem\\Dropbox\\RDF\\parseNT.R')
-source('C:\\Users\\Abdelmonem\\Dropbox\\fchk\\hfuncs.R')
-reif=getTriples(paste0("C:\\Users\\Abdelmonem\\Dropbox\\fchk\\ds\\",ds_name,".nt"))
+source('parseNT.R')
+source('hfuncs.R')
+reif=getTriples(paste0("Datasets/",ds_name,".nt"))
 tmp=cbind(unlist(reif[[1]]),unlist(reif[[2]]),unlist(reif[[3]]))
 trpid=unique(tmp[,1])
 obj=tmp[tmp[,2]=="<http://www.w3.org/1999/02/22-rdf-syntax-ns#object>",c(1,3)]
