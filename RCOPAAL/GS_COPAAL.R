@@ -1,7 +1,8 @@
 # 18/10/2019
-##Calc Veracity
-## add recalc option and store,
-## subTypes and objTypes can be multiples
+
+# function to calculate the scoe for one triple, gs_copaal_ad make use of the previously calculate NPMI values of paths,
+# recalculate only the newly discovered paths.
+
 gs_copaal<-function(pth2,s,p,o,p_tsrc=NA,p_tdst=NA,p_ontology="\'http://dbpedia.org/ontology\'",endpoint,ignoreTypes=FALSE){
     require(SPARQL)
     require(stringi)
@@ -86,11 +87,9 @@ if(nrow(sopth)>0){
 return(list(Tau=1-Tr,Resd,qtime=(t1-t0)[3]))
 }
 
-#Ask queries  
-# (2) consider typesPairs using rdf:type of s & o that are in dpr[prd==p]
-##
-##
-#}
+###########################################################################################
+###########################################################################################
+###########################################################################################
 
 gs_copaal_ad<-function(pth2,s,p,o,p_tsrc=NA,p_tdst=NA,p_ontology="\'http://dbpedia.org/ontology\'",p_exclude=NA,
                        p_exclude_val=NA,endpoint,epgraph=NULL,
@@ -99,6 +98,13 @@ gs_copaal_ad<-function(pth2,s,p,o,p_tsrc=NA,p_tdst=NA,p_ontology="\'http://dbped
     require(stringi)
 #adaptive: if npmi not found calculate it and add to pthdb
 #Topn: max number of paths used in calculating Tr score, 0 all, sorts paths decreasingly according to thier NPMI.
+#vTy: when TRUE means the use of virtual types i.e. the the set of entities in the domain of the predicate are considered
+#          a (virtual) type and the same for the range of the predicate
+#onlyKnownpth: when TRUE, paths that are not pth2 ae not considered
+#pthLen: the length of paths 
+#collectPthsOnly: used to find the set of paths without calculating NPMI
+#epgraph: optional, can be used to force the queries to consider a specific graph in the endpoint
+
 ##
 # Encoding done in reading (parseNT) 21/6/2020
 # s=stri_encode(s, "", "UTF-8")
@@ -343,20 +349,3 @@ get_Tau<-function(Trppths,Topn=0){
     return(list(Tp=Tp,Tr=Tr,Tn=Tn,Tau=(1-Tp)*Tn,TauOld=(1-Tr),Resd=Resd))
 }
 
-# uqt=pth[!duplicated(paste(pth[,1],pth[,2])),]
-# print(uqt)
-
-# # qtmp=sprintf("select count(*) as ?cnt ?ix as ix {%s ?p1 ?v1. ?v1 ?p2 %s.}",s,o)
-# # subq=data.frame(ix=1:nrow(uqt),qtmp)
-# # qry=gsub("?p2",uqt[,2],gsub("?p1",uqt[,1],subq))
-
-# subq1=unlist(lapply(1:nrow(uqt),function(x){sprintf("select count(*) as ?cnt %d as ?ix {%s %s ?v1. ?v1 %s %s.}",x,s,o,
-              # uqt[x,1],uqt[x,2])}))
-
-              # subq=subq1[1:30]
-              # qry=paste0("select *{",paste(paste("{",subq,"}"),collapse=" union "),"}")
-
-# t0=proc.time()
-# qdcnt <- SPARQL(endpoint,qry)
-# t1=proc.time()
-# qdcnt$results

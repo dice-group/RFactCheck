@@ -1,5 +1,10 @@
 #21/10/2019
-
+#Calculates the NPMI value for a given path
+#Three Forms: 
+# calc_pth_npmi: original one type of subject and object
+    # calc_pth_npmi_mTy: considers multiple types
+    # calc_pth_npmi_vTy: implements virtual types ( domain and range as one virtual type each)
+    
 calc_pth_npmi<-function(prd,p1,p2=NA,rev1=0,rev2=0,ignoreTypes=TRUE,tsrc=NA,tdst=NA,
         cnt_prd=NA,cnt_tsrc=NA,cnt_tdst=NA,qcnt=NA,
         qmin=1,p_epsilon=1e-18,endpoint){
@@ -188,6 +193,9 @@ calc_pth_npmi<-function(prd,p1,p2=NA,rev1=0,rev2=0,ignoreTypes=TRUE,tsrc=NA,tdst
         }
         return(Res)
     }
+ 
+ #########################################################################
+ #########################################################################
  
  ### Update epsilon
  calc_pth_npmi_mTy<-function(prd,p1,p2=NA,p3=NA,rev1=0,rev2=0,rev3=0,tsrc=NA,tdst=NA,
@@ -397,7 +405,9 @@ calc_pth_npmi<-function(prd,p1,p2=NA,rev1=0,rev2=0,ignoreTypes=TRUE,tsrc=NA,tdst
         return(Res)
     }
     
-    
+  #########################################################################
+ #########################################################################
+ 
     npmi_eqn<-function(cnt_tx,cnt_ty,cnt_P,qcnt,cntJ,p_epsilon=1e-18){
             tx_ty=(cnt_tx*1.0*cnt_ty)
             Pqp=cntJ/tx_ty
